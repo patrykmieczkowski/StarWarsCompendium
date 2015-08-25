@@ -20,20 +20,20 @@ public class PeopleDeserializer implements JsonDeserializer<People> {
     public People deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
         JsonObject mainObject = json.getAsJsonObject();
-        String name = mainObject.get("name").toString();
-        String birthYear = mainObject.get("birth_year").toString();
-        String eyeColor = mainObject.get("eye_color").toString();
-        String gender = mainObject.get("gender").toString();
-        String hairColor = mainObject.get("hair_color").toString();
-        String height = mainObject.get("height").toString();
-        String mass = mainObject.get("mass").toString();
-        String skinColor = mainObject.get("skin_color").toString();
-        String homeworld = mainObject.get("homeworld").toString();
+        String name = mainObject.get("name").toString().replaceAll("\"","");
+        String birthYear = mainObject.get("birth_year").toString().replaceAll("\"", "").replaceAll("BBY", " BBY").replaceAll("ABY", " ABY").replaceAll("unknown","unknown birth date");
+        String eyeColor = mainObject.get("eye_color").toString().replaceAll("\"", "");
+        String gender = mainObject.get("gender").toString().replaceAll("\"", "");
+        String hairColor = mainObject.get("hair_color").toString().replaceAll("\"", "");
+        String height = mainObject.get("height").toString().replaceAll("\"", "") + " cm";
+        String mass = mainObject.get("mass").toString().replaceAll("\"", "") + " kg";
+        String skinColor = mainObject.get("skin_color").toString().replaceAll("\"", "");
+        String homeworld = mainObject.get("homeworld").toString().replaceAll("\"","");
 
         People people = new People(name, birthYear, eyeColor, gender, hairColor, height, mass, skinColor, homeworld);
 
-        Log.e("PeopleDeserializer", name + " " + birthYear + " " + gender);
-        
+        Log.d("PeopleDeserializer", name + " " + birthYear + " " + gender);
+
 
         return people;
     }
